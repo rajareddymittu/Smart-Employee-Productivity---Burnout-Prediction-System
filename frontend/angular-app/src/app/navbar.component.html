@@ -1,0 +1,15 @@
+<nav class="navbar">
+  <div class="brand">AI Employee Productivity</div>
+  <div class="links">
+    <a *ngIf="roles.includes('Manager') || roles.includes('HR')" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
+    <a *ngIf="roles.includes('Manager') || roles.includes('HR')" routerLink="/employees" routerLinkActive="active">Employees</a>
+    <a *ngIf="roles.includes('Employee') || roles.includes('Manager') || roles.includes('HR')" routerLink="/predict" routerLinkActive="active">Predict</a>
+    <a *ngIf="roles.includes('Employee')" routerLink="/worklog" routerLinkActive="active">Log Shift</a>
+    <a *ngIf="roles.includes('Manager')" routerLink="/reportees" routerLinkActive="active">Reportees</a>
+    <a *ngIf="roles.includes('HR')" routerLink="/hr" routerLinkActive="active">HR</a>
+    <a *ngIf="!isLogged" routerLink="/login" routerLinkActive="active">Login</a>
+    <button *ngIf="isLogged" (click)="logout()" class="btn secondary">Logout</button>
+    <span *ngIf="isLogged" style="margin-left:0.5rem;color:var(--muted)">{{username}}</span>
+  </div>
+</nav>
+
