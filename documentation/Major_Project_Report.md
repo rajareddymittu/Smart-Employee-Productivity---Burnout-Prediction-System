@@ -477,3 +477,442 @@ The project successfully shows the use of Angular, FastAPI, SQLAlchemy, and Scik
 # Appendix: Notes for Submission
 
 You may replace the placeholders in the Title Page, Certificate, and Declaration sections with your personal details before final submission.
+
+---
+
+# 9. Detailed System Architecture
+
+This section expands the architecture discussion so the report can be printed as a complete project document rather than a short summary. It is intentionally detailed so that the final PDF has sufficient academic depth.
+
+## 9.1 Architectural Overview
+
+The system uses a layered client-server model. Each layer handles one responsibility and communicates with the next through well-defined interfaces.
+
+### Layer 1: Presentation Layer
+
+The presentation layer is built in Angular. It renders login pages, dashboards, employee lists, manager views, HR views, worklog forms, and analytical summaries. This layer is responsible for user interaction and display logic.
+
+### Layer 2: Application Layer
+
+The application layer is implemented using FastAPI. It provides API endpoints, enforces security rules, transforms request data into service calls, and returns JSON responses.
+
+### Layer 3: Persistence Layer
+
+The persistence layer is managed by SQLAlchemy ORM and the relational database. It stores structured records for users, employees, departments, worklogs, predictions, leaves, tasks, projects, meetings, notifications, and audit logs.
+
+### Layer 4: Intelligence Layer
+
+The intelligence layer contains the machine learning prediction pipeline. It converts employee activity features into burnout scores and risk categories.
+
+## 9.2 Communication Flow
+
+The communication flow between the layers is as follows:
+
+1. A user submits input through the Angular UI.
+2. The frontend sends an HTTP request to the FastAPI backend.
+3. FastAPI validates the request using schemas.
+4. Business rules are applied by the service logic.
+5. SQLAlchemy retrieves or stores records in the database.
+6. If the request involves prediction, the ML module generates a risk output.
+7. The backend returns a JSON response to Angular.
+8. Angular updates the visible screen with the result.
+
+## 9.3 Deployment View
+
+The deployment view separates the browser, the backend server, and the database. This makes development and testing easier because the frontend can be restarted independently from the backend, and the database can be changed without redesigning the UI.
+
+### Suggested Deployment Diagram Description
+
+- User Browser
+- Angular Frontend
+- FastAPI Application Server
+- SQLite Development Database
+- ML Model Artifact Store
+
+**Insert Screenshot 22:** Deployment architecture diagram.
+
+## 9.4 Security View
+
+The security view focuses on authentication, authorization, and data access control. The current implementation uses JWT tokens and role-based route protection. Production environments should additionally support stronger token storage and secure transport.
+
+## 9.5 Maintainability View
+
+The project is maintainable because it separates concerns into modules:
+
+- `app/api/` for route handlers,
+- `app/models.py` for ORM tables,
+- `app/schemas.py` for request and response validation,
+- `app/services/` for business logic,
+- `app/repositories/` for database access,
+- `app/ml/` for prediction logic.
+
+This organization reduces coupling and makes testing easier.
+
+## 9.6 Scalability View
+
+The system is scalable at the design level because the backend is API-driven. New frontend screens can be added without modifying the core server structure. Similarly, new database tables can be added using migrations when the project grows.
+
+---
+
+# 10. Module-Wise Explanation
+
+## 10.1 Authentication Module
+
+The authentication module handles registration, login, password verification, token creation, and current-user lookup.
+
+### Responsibilities
+
+- Hash user passwords.
+- Validate login credentials.
+- Generate access tokens.
+- Identify the current authenticated user.
+- Enforce role-based access.
+
+### Sample Behavior
+
+If a user enters invalid credentials, the backend returns `401 Unauthorized`. If the credentials are valid, the backend issues a bearer token that the frontend can reuse for API calls.
+
+**Insert Screenshot 23:** Successful login response in Swagger or Postman.
+
+## 10.2 Employee Module
+
+The employee module provides employee registration, listing, and profile retrieval. HR users are the primary consumers of this module.
+
+### Key Functions
+
+- Create employee profile.
+- Retrieve employee list.
+- View employee detail.
+- Search by employee ID or code.
+
+### Data Fields
+
+- Employee code
+- First name
+- Last name
+- Gender
+- Department
+- Manager
+- Joining date
+- Experience
+- Status
+
+## 10.3 Manager Module
+
+The manager module helps supervisors view the employees assigned to them. This supports team-level review without exposing unrelated employees.
+
+### Key Functions
+
+- List reportees for a manager.
+- Check team members by department.
+- Review productivity and attendance trends.
+- Support manager-level oversight.
+
+**Insert Screenshot 24:** Manager reportee dashboard.
+
+## 10.4 HR Module
+
+The HR module provides organization-level visibility.
+
+### Key Functions
+
+- List all employees.
+- View recent hires.
+- Review burnout summaries.
+- Analyze department patterns.
+- Support HR operations.
+
+### HR Value
+
+This module is important because it gives HR a centralized way to review employee health indicators and overall organization structure.
+
+## 10.5 Worklog Module
+
+The worklog module records daily or periodic employee activity.
+
+### Fields in a Worklog Record
+
+- Employee ID
+- Date
+- Working hours
+- Meeting hours
+- Task count
+- Task completion percentage
+
+### Business Interpretation
+
+Worklog records are useful because they reveal how time is spent across tasks and meetings. They also provide input features for burnout prediction.
+
+## 10.6 Prediction Module
+
+The prediction module receives input features and returns a burnout score and category.
+
+### Output Types
+
+- Low risk
+- Medium risk
+- High risk
+
+### Interpretation
+
+Prediction does not replace human judgement. It is used as a support mechanism to help HR and managers identify possible workload issues.
+
+---
+
+# 11. Database Tables and Data Dictionary
+
+## 11.1 Users Table
+
+Stores application login credentials and account metadata.
+
+| Column | Type | Description |
+|---|---|---|
+| id | Integer | Primary key |
+| username | String | Unique login name |
+| email | String | Unique email address |
+| password_hash | String | Hashed password |
+| employee_id | Integer | Linked employee profile |
+| created_at | DateTime | Account creation time |
+| updated_at | DateTime | Last update time |
+
+## 11.2 Roles Table
+
+Stores role names such as Employee, Manager, and HR.
+
+## 11.3 Employees Table
+
+Stores personnel details and organization relationships.
+
+| Column | Type | Description |
+|---|---|---|
+| employee_code | String | Unique employee code |
+| first_name | String | First name |
+| last_name | String | Last name |
+| manager_id | Integer | Self-referenced manager |
+| department_id | Integer | Department relationship |
+| joining_date | Date | Joining date |
+| experience | Numeric | Experience in years |
+| salary_grade | String | Salary category |
+| status | String | Active/inactive state |
+
+## 11.4 WorkLogs Table
+
+Stores daily productivity-related entries.
+
+| Column | Type | Description |
+|---|---|---|
+| employee_id | Integer | Related employee |
+| date | Date | Log date |
+| working_hours | Numeric | Total working time |
+| meeting_hours | Numeric | Time spent in meetings |
+| task_count | Integer | Number of tasks |
+| task_completion_percent | Numeric | Completion percentage |
+
+## 11.5 Predictions Table
+
+Stores model output and forecast history.
+
+| Column | Type | Description |
+|---|---|---|
+| employee_id | Integer | Related employee |
+| burnout_risk | String | Risk category |
+| burnout_score | Float | Numeric score |
+| productivity_score | Float | Productivity estimate |
+| predicted_on | DateTime | Prediction timestamp |
+
+**Insert Screenshot 25:** Database table list or SQLite browser view.
+
+---
+
+# 12. API Documentation Summary
+
+This section provides a more detailed explanation of the most important API endpoints.
+
+## 12.1 Authentication APIs
+
+### `POST /api/auth/register`
+
+Registers a new user and assigns a default role if needed.
+
+### `POST /api/auth/login`
+
+Validates username and password and returns a bearer token.
+
+### `GET /api/auth/me`
+
+Returns the profile information of the current authenticated user.
+
+## 12.2 Employee APIs
+
+### `GET /api/employees/`
+
+Returns a list of employees for authorized HR users.
+
+### `GET /api/employees/{id}`
+
+Returns a single employee record by ID.
+
+### `POST /api/employees/`
+
+Creates a new employee entry.
+
+## 12.3 Prediction APIs
+
+### `POST /api/predict/burnout`
+
+Accepts burnout-related feature values and returns a prediction response.
+
+### Example Request Body
+
+```json
+{
+	"employee_id": 10,
+	"working_hours_per_day": 9,
+	"overtime_hours": 3,
+	"meeting_hours": 4,
+	"leave_count": 1,
+	"late_arrivals": 2,
+	"task_completion_percent": 72,
+	"performance_rating": 4.0
+}
+```
+
+### Example Response Body
+
+```json
+{
+	"employee_id": 10,
+	"burnout_risk": "Medium",
+	"burnout_score": 0.67
+}
+```
+
+## 12.4 HR APIs
+
+HR endpoints provide recent hire lists, manager burnout summaries, and employee views.
+
+**Insert Screenshot 26:** HR API response in Swagger.
+
+---
+
+# 13. Detailed Testing Documentation
+
+## 13.1 Authentication Test Cases
+
+| Test ID | Test Description | Input | Expected Output |
+|---|---|---|---|
+| T1 | Valid login | Correct username and password | Access token |
+| T2 | Invalid login | Incorrect password | Error message |
+| T3 | Current user lookup | Valid token | User profile |
+
+## 13.2 Authorization Test Cases
+
+| Test ID | Test Description | Input | Expected Output |
+|---|---|---|---|
+| T4 | HR employee list access | HR token | Employee list |
+| T5 | Unauthorized access | Employee token on HR route | Permission denied |
+| T6 | Manager reportee view | Manager token | Assigned reportees |
+
+## 13.3 Worklog Test Cases
+
+| Test ID | Test Description | Input | Expected Output |
+|---|---|---|---|
+| T7 | Submit worklog | Valid worklog JSON | Record saved |
+| T8 | Empty worklog | Missing required values | Validation error |
+
+## 13.4 Prediction Test Cases
+
+| Test ID | Test Description | Input | Expected Output |
+|---|---|---|---|
+| T9 | Burnout prediction | Feature payload | Risk and score |
+| T10 | Missing feature | Incomplete payload | Validation error |
+
+## 13.5 UI Test Cases
+
+- Login form should submit credentials correctly.
+- Navigation should update after login.
+- Role-specific pages should load only when authorized.
+- Logout should clear the session state.
+
+**Insert Screenshot 27:** API testing checklist or passed test table.
+
+---
+
+# 14. Additional Implementation Notes
+
+## 14.1 Data Seeding
+
+The project includes scripts for creating tables, seeding roles and users, inserting employee data, assigning managers, and training the ML model.
+
+### Purpose of Seeding
+
+- Provide demo data for evaluation.
+- Enable testing without manual database entry.
+- Support fast local setup.
+
+## 14.2 Training Pipeline
+
+The training scripts generate synthetic employee data, train models, and save model artifacts in the project model directory.
+
+### Training Workflow
+
+1. Generate input features.
+2. Engineer derived variables.
+3. Split data for training and evaluation.
+4. Train classification and regression models.
+5. Evaluate performance.
+6. Serialize artifacts with Joblib.
+
+## 14.3 Runtime Prediction Flow
+
+At runtime, the backend loads the model artifacts and performs inference when the prediction endpoint is called.
+
+## 14.4 Screenshot Guide for Final Printout
+
+To complete the report before PDF export, the following images should be captured manually:
+
+1. Login screen.
+2. HR employee list.
+3. Manager reportee page.
+4. Employee detail page.
+5. Worklog submission page.
+6. Prediction result page.
+7. Swagger API docs.
+8. Database table browser.
+9. Terminal output showing backend startup.
+10. Frontend running in the browser.
+
+---
+
+# 15. Extended Conclusion and Final Remarks
+
+The project demonstrates a practical example of combining enterprise web development and machine learning. It is especially useful as an academic major project because it touches on many core concepts in the MCA curriculum, including software engineering, database design, backend development, frontend development, applied analytics, and software testing.
+
+The solution can be expanded into a production-ready HR analytics system by adding stronger security controls, migration support, dashboards, and explainable AI features. Even in its current state, it provides a realistic basis for discussion, implementation, demonstration, and academic evaluation.
+
+### 15.1 Final Benefit Summary
+
+- Helps identify workload stress patterns.
+- Supports managerial decision-making.
+- Improves HR visibility.
+- Demonstrates end-to-end application development.
+- Serves as a strong base for future research.
+
+### 15.2 Final Screenshot Placeholder
+
+**Insert Screenshot 28:** Completed application overview screen.
+
+---
+
+# Appendix: Extra Submission Checklist
+
+Before printing the final PDF, confirm the following:
+
+- All placeholders have been replaced with actual student and guide details.
+- Screenshots have been inserted into every marked location.
+- Page numbers are visible in the footer.
+- The document uses consistent formatting and font size.
+- The PDF preview has been checked for page breaks.
+- The bibliography is complete.
+- The report has been proofread for grammar and spelling.
+
