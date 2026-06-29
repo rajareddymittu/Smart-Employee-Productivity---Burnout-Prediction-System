@@ -1,0 +1,106 @@
+@startuml
+title Deployment Diagram - AI-Powered Employee Productivity Analytics and Burnout Prediction System
+
+skinparam shadowing false
+skinparam linetype ortho
+
+node "Client Machine" {
+
+    artifact "Web Browser\n(Chrome / Edge / Firefox)" as Browser
+
+    node "Angular Application" {
+        artifact "Angular UI"
+        artifact "Components"
+        artifact "Services"
+        artifact "Guards"
+        artifact "JWT Token Storage"
+    }
+}
+
+cloud "HTTP / HTTPS"
+
+node "Application Server" {
+
+    node "FastAPI Backend" {
+
+        artifact "Authentication API"
+        artifact "Employee API"
+        artifact "Manager API"
+        artifact "HR API"
+        artifact "Attendance API"
+        artifact "Leave API"
+        artifact "Project API"
+        artifact "Task API"
+        artifact "Meeting API"
+        artifact "WorkLog API"
+        artifact "Prediction API"
+        artifact "Notification API"
+
+        component "Business Services"
+        component "Repository Layer"
+        component "SQLAlchemy ORM"
+        component "Pydantic Schemas"
+
+    }
+
+    folder "Machine Learning" {
+
+        artifact "Feature Engineering"
+
+        artifact "burnout_model.pkl"
+
+        artifact "productivity_model.pkl"
+
+        artifact "scaler.pkl"
+
+        component "Prediction Engine"
+
+    }
+
+}
+
+database "SQLite Database\n(dev.db)" as DB
+
+Browser --> "Angular UI"
+
+"Angular UI" --> "Authentication API"
+"Angular UI" --> "Employee API"
+"Angular UI" --> "Manager API"
+"Angular UI" --> "HR API"
+"Angular UI" --> "Attendance API"
+"Angular UI" --> "Leave API"
+"Angular UI" --> "Project API"
+"Angular UI" --> "Task API"
+"Angular UI" --> "Meeting API"
+"Angular UI" --> "WorkLog API"
+"Angular UI" --> "Prediction API"
+
+"Authentication API" --> "Business Services"
+"Employee API" --> "Business Services"
+"Manager API" --> "Business Services"
+"HR API" --> "Business Services"
+"Attendance API" --> "Business Services"
+"Leave API" --> "Business Services"
+"Project API" --> "Business Services"
+"Task API" --> "Business Services"
+"Meeting API" --> "Business Services"
+"WorkLog API" --> "Business Services"
+"Prediction API" --> "Business Services"
+
+"Business Services" --> "Repository Layer"
+
+"Repository Layer" --> "SQLAlchemy ORM"
+
+"SQLAlchemy ORM" --> DB
+
+"Prediction API" --> "Prediction Engine"
+
+"Prediction Engine" --> "Feature Engineering"
+
+"Prediction Engine" --> burnout_model.pkl
+
+"Prediction Engine" --> productivity_model.pkl
+
+"Prediction Engine" --> scaler.pkl
+
+@enduml

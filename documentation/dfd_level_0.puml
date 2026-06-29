@@ -1,0 +1,34 @@
+@startuml
+title Data Flow Diagram (Level 0) - Context Diagram
+left to right direction
+
+skinparam shadowing false
+skinparam rectangle {
+    BackgroundColor White
+}
+
+actor Employee
+actor Manager
+actor HR
+actor Admin
+
+rectangle "AI-Powered Employee Productivity\nAnalytics & Burnout Prediction System" as System
+
+database "Employee Database" as DB
+
+Employee --> System : Login\nWorklogs\nAttendance\nLeave Request
+System --> Employee : Dashboard\nPrediction\nReports
+
+Manager --> System : Team Management\nTask Assignment
+System --> Manager : Team Reports\nBurnout Alerts
+
+HR --> System : Employee Management\nAnalytics Request
+System --> HR : Reports\nPredictions\nAnalytics
+
+Admin --> System : User & Role Management
+System --> Admin : Audit Logs\nConfiguration
+
+System --> DB : Store / Retrieve Data
+DB --> System : Employee Data\nAttendance\nWorklogs\nPredictions
+
+@enduml

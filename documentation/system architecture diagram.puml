@@ -1,0 +1,132 @@
+@startuml
+title AI-Powered Employee Productivity Analytics and Burnout Prediction System
+skinparam componentStyle rectangle
+skinparam shadowing false
+skinparam packageStyle rectangle
+left to right direction
+
+actor Employee
+actor Manager
+actor HR
+actor Admin
+
+package "Client Layer" {
+
+  component "Angular Frontend" as Angular {
+      [Login]
+      [Dashboard]
+      [Employee Module]
+      [Manager Module]
+      [HR Module]
+      [Worklog Module]
+      [Prediction Dashboard]
+  }
+}
+
+package "Application Layer (FastAPI)" {
+
+component "Authentication Service" as Auth
+component "Employee Service" as Emp
+component "Manager Service" as ManagerSvc
+component "HR Service" as HRSvc
+component "Attendance Service" as Attendance
+component "Leave Service" as LeaveSvc
+component "Project Service" as ProjectSvc
+component "Task Service" as TaskSvc
+component "Meeting Service" as MeetingSvc
+component "Performance Review Service" as PerfSvc
+component "Worklog Service" as WorklogSvc
+component "Prediction Service" as PredictSvc
+component "Notification Service" as NotifySvc
+component "Audit Log Service" as AuditSvc
+
+}
+
+package "Business Layer" {
+
+component "Repositories"
+component "SQLAlchemy ORM"
+component "Pydantic Schemas"
+
+}
+
+package "Machine Learning Layer" {
+
+component "Feature Engineering"
+component "Burnout Model (.pkl)"
+component "Productivity Model (.pkl)"
+component "Scaler"
+component "Prediction Engine"
+
+}
+
+database "SQLite\n(dev.db)" as DB
+
+cloud "Model Storage" {
+
+artifact burnout_model.pkl
+artifact productivity_model.pkl
+artifact scaler.pkl
+
+}
+
+Employee --> Angular
+Manager --> Angular
+HR --> Angular
+Admin --> Angular
+
+Angular --> Auth
+Angular --> Emp
+Angular --> ManagerSvc
+Angular --> HRSvc
+Angular --> Attendance
+Angular --> LeaveSvc
+Angular --> ProjectSvc
+Angular --> TaskSvc
+Angular --> MeetingSvc
+Angular --> PerfSvc
+Angular --> WorklogSvc
+Angular --> PredictSvc
+Angular --> NotifySvc
+
+Auth --> Repositories
+Emp --> Repositories
+ManagerSvc --> Repositories
+HRSvc --> Repositories
+Attendance --> Repositories
+LeaveSvc --> Repositories
+ProjectSvc --> Repositories
+TaskSvc --> Repositories
+MeetingSvc --> Repositories
+PerfSvc --> Repositories
+WorklogSvc --> Repositories
+PredictSvc --> Repositories
+NotifySvc --> Repositories
+AuditSvc --> Repositories
+
+Repositories --> "SQLAlchemy ORM"
+"SQLAlchemy ORM" --> DB
+Repositories --> "Pydantic Schemas"
+
+PredictSvc --> "Feature Engineering"
+"Feature Engineering" --> Scaler
+Scaler --> "Prediction Engine"
+"Prediction Engine" --> "Burnout Model (.pkl)"
+"Prediction Engine" --> "Productivity Model (.pkl)"
+
+"Burnout Model (.pkl)" ..> burnout_model.pkl
+"Productivity Model (.pkl)" ..> productivity_model.pkl
+Scaler ..> scaler.pkl
+
+PredictSvc --> DB
+WorklogSvc --> DB
+Attendance --> DB
+LeaveSvc --> DB
+ProjectSvc --> DB
+TaskSvc --> DB
+MeetingSvc --> DB
+PerfSvc --> DB
+NotifySvc --> DB
+AuditSvc --> DB
+
+@enduml

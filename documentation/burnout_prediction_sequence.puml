@@ -1,0 +1,72 @@
+@startuml
+title Burnout Prediction Sequence Diagram
+
+autonumber
+
+actor HR
+
+participant "Angular Frontend" as Angular
+participant "Prediction Component" as UI
+participant "FastAPI\nPrediction API" as API
+participant "Prediction Service" as Service
+participant "Feature Engineering" as FE
+participant "Scaler" as Scaler
+participant "Burnout Model\n(Random Forest)" as Model
+participant "Prediction Repository" as Repo
+database "SQLite Database" as DB
+
+HR -> Angular : Open Analytics Dashboard
+
+Angular -> UI : Load Prediction Screen
+
+HR -> UI : Select Employee
+
+UI -> API : POST /api/predict/burnout\n(Employee ID)
+
+API -> Service : predictBurnout()
+
+Service -> Repo : Load Employee Data
+
+Repo -> DB : SELECT Employee Details
+DB --> Repo : Employee Information
+
+Repo -> DB : SELECT Attendance
+DB --> Repo : Attendance Records
+
+Repo -> DB : SELECT Worklogs
+DB --> Repo : Worklog Records
+
+Repo -> DB : SELECT Performance Reviews
+DB --> Repo : Review History
+
+Repo --> Service : Aggregated Employee Data
+
+Service -> FE : Generate Feature Vector
+
+FE --> Service : Features
+
+Service -> Scaler : Normalize Features
+
+Scaler --> Service : Scaled Features
+
+Service -> Model : Predict Burnout Risk
+
+Model --> Service : Burnout Score\nRisk Category
+
+Service -> Repo : Save Prediction
+
+Repo -> DB : INSERT Prediction Record
+
+DB --> Repo : Saved Successfully
+
+Repo --> Service
+
+Service --> API : Prediction Response
+
+API --> UI : Burnout Score\nRisk Level\nRecommendations
+
+UI --> Angular : Display Dashboard
+
+Angular --> HR : Prediction Results
+
+@enduml

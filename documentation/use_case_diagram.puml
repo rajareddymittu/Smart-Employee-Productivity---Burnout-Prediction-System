@@ -1,0 +1,109 @@
+@startuml
+title AI-Powered Employee Productivity Analytics and Burnout Prediction System
+left to right direction
+
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam usecase {
+    BackgroundColor White
+    BorderColor Black
+}
+
+actor Employee
+actor Manager
+actor HR
+actor Admin
+
+rectangle "AI-Powered Employee Productivity Analytics & Burnout Prediction System" {
+
+  usecase "Login" as UC1
+  usecase "Logout" as UC2
+  usecase "View Dashboard" as UC3
+  usecase "Update Profile" as UC4
+
+  usecase "Submit Worklog" as UC5
+  usecase "View My Worklogs" as UC6
+  usecase "View My Attendance" as UC7
+  usecase "Apply Leave" as UC8
+  usecase "View My Tasks" as UC9
+  usecase "View My Meetings" as UC10
+  usecase "View Performance Reviews" as UC11
+  usecase "View Burnout Prediction" as UC12
+
+  usecase "View Team Members" as UC13
+  usecase "Approve Leave Requests" as UC14
+  usecase "Review Team Worklogs" as UC15
+  usecase "Assign Tasks" as UC16
+  usecase "Schedule Meetings" as UC17
+  usecase "Review Burnout Reports" as UC18
+
+  usecase "Manage Employees" as UC19
+  usecase "Manage Departments" as UC20
+  usecase "Manage Attendance" as UC21
+  usecase "Manage Leave Types" as UC22
+  usecase "Manage Projects" as UC23
+  usecase "Generate Reports" as UC24
+  usecase "Run Burnout Prediction" as UC25
+  usecase "View Analytics Dashboard" as UC26
+  usecase "Manage Notifications" as UC27
+
+  usecase "Manage Users" as UC28
+  usecase "Manage Roles" as UC29
+  usecase "View Audit Logs" as UC30
+  usecase "System Configuration" as UC31
+
+}
+
+Employee --> UC1
+Employee --> UC2
+Employee --> UC3
+Employee --> UC4
+Employee --> UC5
+Employee --> UC6
+Employee --> UC7
+Employee --> UC8
+Employee --> UC9
+Employee --> UC10
+Employee --> UC11
+Employee --> UC12
+
+Manager --> UC1
+Manager --> UC2
+Manager --> UC3
+Manager --> UC13
+Manager --> UC14
+Manager --> UC15
+Manager --> UC16
+Manager --> UC17
+Manager --> UC18
+
+HR --> UC1
+HR --> UC2
+HR --> UC3
+HR --> UC19
+HR --> UC20
+HR --> UC21
+HR --> UC22
+HR --> UC23
+HR --> UC24
+HR --> UC25
+HR --> UC26
+HR --> UC27
+
+Admin --> UC1
+Admin --> UC2
+Admin --> UC28
+Admin --> UC29
+Admin --> UC30
+Admin --> UC31
+Admin --> UC19
+Admin --> UC20
+Admin --> UC21
+Admin --> UC22
+Admin --> UC23
+
+UC25 .> UC18 : <<include>>
+UC24 .> UC26 : <<include>>
+UC5 .> UC12 : <<extend>>
+
+@enduml

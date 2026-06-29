@@ -1,0 +1,110 @@
+@startuml
+title Activity Diagram - Employee Productivity Analytics & Burnout Prediction System
+
+skinparam shadowing false
+
+start
+
+:Open Application;
+
+:Display Login Page;
+
+:Enter Username & Password;
+
+:Submit Login Request;
+
+if (Credentials Valid?) then (Yes)
+
+:Generate JWT Token;
+
+:Load User Profile;
+
+if (User Role?) then (Employee)
+
+:Open Employee Dashboard;
+
+:View Profile;
+
+:Submit Worklog;
+
+:View Attendance;
+
+:Apply Leave;
+
+:View Tasks & Meetings;
+
+:View Burnout Prediction;
+
+elseif (Manager)
+
+:Open Manager Dashboard;
+
+:View Team Members;
+
+:Review Team Worklogs;
+
+:Approve Leave Requests;
+
+:Assign Tasks;
+
+:Schedule Meetings;
+
+:Review Burnout Reports;
+
+elseif (HR)
+
+:Open HR Dashboard;
+
+:Manage Employees;
+
+:Manage Departments;
+
+:Manage Attendance;
+
+:Manage Projects;
+
+:Generate Reports;
+
+:Select Employee;
+
+:Collect Employee Data;
+
+:Prepare ML Features;
+
+:Scale Features;
+
+:Run Burnout Prediction Model;
+
+:Generate Productivity Score;
+
+:Store Prediction;
+
+:Display Analytics Dashboard;
+
+elseif (Admin)
+
+:Manage Users;
+
+:Manage Roles;
+
+:View Audit Logs;
+
+:System Configuration;
+
+endif
+
+:Logout;
+
+stop
+
+else (No)
+
+:Display Login Failed;
+
+:Retry Login;
+
+stop
+
+endif
+
+@enduml

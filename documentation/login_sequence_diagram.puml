@@ -1,0 +1,74 @@
+@startuml
+title Login Authentication Sequence Diagram
+
+autonumber
+
+actor User
+
+participant "Angular Frontend" as Angular
+participant "Auth Component" as UI
+participant "FastAPI\nAuth API" as API
+participant "Authentication\nService" as Service
+participant "User Repository" as Repo
+database "SQLite Database" as DB
+participant "JWT Service" as JWT
+
+User -> Angular : Open Login Page
+Angular -> UI : Display Login Form
+
+User -> UI : Enter Username & Password
+UI -> API : POST /api/auth/login\n(username, password)
+
+API -> Service : authenticateUser()
+
+Service -> Repo : findUser(username)
+
+Repo -> DB : SELECT user
+DB --> Repo : User Record
+
+Repo --> Service : User Details
+
+Service -> Service : Verify Password
+
+alt Invalid Credentials
+
+Service --> API : Authentication Failed
+API --> UI : 401 Unauthorized
+UI --> User : Invalid Username/Password
+
+else Valid Credentials
+
+Service -> JWT : Generate JWT Token
+JWT --> Service : Access Token
+
+Service --> API : Login Success
+
+API --> UI : 200 OK\nJWT Token + User Info
+
+UI -> UI : Store JWT Token\n(Session Storage)
+
+UI -> API : GET /api/auth/me\nAuthorization: Bearer Token
+
+API -> Service : Validate Token
+
+Service -> JWT : Verify JWT
+JWT --> Service : Token Valid
+
+Service -> Repo : Load User Profile
+
+Repo -> DB : SELECT Profile
+
+DB --> Repo : Employee Data
+
+Repo --> Service
+Service --> API
+
+API --> UI : User Profile
+
+UI --> Angular : Navigate to Dashboard
+
+Angular --> User : Dashboard Loaded
+
+end
+
+@enduml

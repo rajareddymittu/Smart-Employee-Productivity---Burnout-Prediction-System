@@ -1,0 +1,171 @@
+@startuml
+title Entity Relationship Diagram - AI-Powered Employee Productivity Analytics
+
+hide methods
+hide stereotypes
+skinparam linetype ortho
+skinparam shadowing false
+
+entity "Role" as Role {
+    * id : INT <<PK>>
+    --
+    name : VARCHAR
+    description : VARCHAR
+}
+
+entity "User" as User {
+    * id : INT <<PK>>
+    --
+    username : VARCHAR
+    email : VARCHAR
+    password_hash : VARCHAR
+    role_id : INT <<FK>>
+    employee_id : INT <<FK>>
+    is_active : BOOLEAN
+}
+
+entity "Department" as Department {
+    * id : INT <<PK>>
+    --
+    name : VARCHAR
+    description : VARCHAR
+}
+
+entity "Employee" as Employee {
+    * id : INT <<PK>>
+    --
+    employee_code : VARCHAR
+    first_name : VARCHAR
+    last_name : VARCHAR
+    gender : VARCHAR
+    designation : VARCHAR
+    joining_date : DATE
+    experience : FLOAT
+    manager_id : INT <<FK>>
+    department_id : INT <<FK>>
+}
+
+entity "Attendance" as Attendance {
+    * id : INT <<PK>>
+    --
+    employee_id : INT <<FK>>
+    date : DATE
+    check_in : DATETIME
+    check_out : DATETIME
+    status : VARCHAR
+}
+
+entity "LeaveType" as LeaveType {
+    * id : INT <<PK>>
+    --
+    name : VARCHAR
+    description : VARCHAR
+}
+
+entity "LeaveRequest" as LeaveRequest {
+    * id : INT <<PK>>
+    --
+    employee_id : INT <<FK>>
+    leave_type_id : INT <<FK>>
+    start_date : DATE
+    end_date : DATE
+    status : VARCHAR
+}
+
+entity "Project" as Project {
+    * id : INT <<PK>>
+    --
+    name : VARCHAR
+    description : VARCHAR
+    status : VARCHAR
+}
+
+entity "Task" as Task {
+    * id : INT <<PK>>
+    --
+    project_id : INT <<FK>>
+    employee_id : INT <<FK>>
+    title : VARCHAR
+    priority : VARCHAR
+    status : VARCHAR
+    due_date : DATE
+}
+
+entity "Meeting" as Meeting {
+    * id : INT <<PK>>
+    --
+    employee_id : INT <<FK>>
+    title : VARCHAR
+    meeting_time : DATETIME
+    duration : INT
+}
+
+entity "WorkLog" as WorkLog {
+    * id : INT <<PK>>
+    --
+    employee_id : INT <<FK>>
+    work_date : DATE
+    hours : FLOAT
+    description : TEXT
+}
+
+entity "PerformanceReview" as PerformanceReview {
+    * id : INT <<PK>>
+    --
+    employee_id : INT <<FK>>
+    rating : FLOAT
+    comments : TEXT
+    review_date : DATE
+}
+
+entity "Prediction" as Prediction {
+    * id : INT <<PK>>
+    --
+    employee_id : INT <<FK>>
+    burnout_score : FLOAT
+    burnout_risk : VARCHAR
+    productivity_score : FLOAT
+    predicted_on : DATETIME
+}
+
+entity "Notification" as Notification {
+    * id : INT <<PK>>
+    --
+    employee_id : INT <<FK>>
+    message : TEXT
+    is_read : BOOLEAN
+    created_at : DATETIME
+}
+
+entity "AuditLog" as AuditLog {
+    * id : INT <<PK>>
+    --
+    employee_id : INT <<FK>>
+    action : VARCHAR
+    entity_name : VARCHAR
+    timestamp : DATETIME
+}
+
+Role ||--o{ User
+
+Department ||--o{ Employee
+
+Employee ||--|| User
+
+Employee ||--o{ Attendance
+Employee ||--o{ LeaveRequest
+Employee ||--o{ WorkLog
+Employee ||--o{ PerformanceReview
+Employee ||--o{ Prediction
+Employee ||--o{ Notification
+Employee ||--o{ AuditLog
+Employee ||--o{ Meeting
+Employee ||--o{ Task
+
+LeaveType ||--o{ LeaveRequest
+
+Project ||--o{ Task
+
+Employee ||--o{ Employee : manages
+
+@enduml

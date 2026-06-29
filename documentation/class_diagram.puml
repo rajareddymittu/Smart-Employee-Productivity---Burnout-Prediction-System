@@ -1,0 +1,145 @@
+@startuml
+title Class Diagram - AI-Powered Employee Productivity Analytics and Burnout Prediction System
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam linetype ortho
+
+class User {
+  +id : int
+  +username : string
+  +email : string
+  +hashed_password : string
+  +is_active : bool
+  +created_at : datetime
+}
+
+class Role {
+  +id : int
+  +name : string
+  +description : string
+}
+
+class Department {
+  +id : int
+  +name : string
+  +description : string
+}
+
+class Employee {
+  +id : int
+  +employee_code : string
+  +first_name : string
+  +last_name : string
+  +gender : string
+  +designation : string
+  +joining_date : date
+  +experience : float
+  +status : string
+}
+
+class Attendance {
+  +id : int
+  +date : date
+  +check_in : datetime
+  +check_out : datetime
+  +status : string
+}
+
+class LeaveType {
+  +id : int
+  +name : string
+  +description : string
+}
+
+class LeaveRequest {
+  +id : int
+  +start_date : date
+  +end_date : date
+  +status : string
+}
+
+class Project {
+  +id : int
+  +name : string
+  +description : string
+  +status : string
+}
+
+class Task {
+  +id : int
+  +title : string
+  +priority : string
+  +status : string
+  +due_date : date
+}
+
+class Meeting {
+  +id : int
+  +title : string
+  +meeting_time : datetime
+  +duration : int
+}
+
+class WorkLog {
+  +id : int
+  +work_date : date
+  +hours : float
+  +task : string
+  +description : string
+}
+
+class PerformanceReview {
+  +id : int
+  +rating : float
+  +comments : string
+  +review_date : date
+}
+
+class Prediction {
+  +id : int
+  +burnout_score : float
+  +burnout_risk : string
+  +productivity_score : float
+  +predicted_on : datetime
+}
+
+class Notification {
+  +id : int
+  +message : string
+  +is_read : bool
+  +created_at : datetime
+}
+
+class AuditLog {
+  +id : int
+  +action : string
+  +entity : string
+  +performed_at : datetime
+}
+
+User "1" --> "1" Employee
+User "*" --> "1" Role
+
+Department "1" --> "*" Employee
+
+Employee "1" --> "*" Attendance
+Employee "1" --> "*" LeaveRequest
+Employee "1" --> "*" WorkLog
+Employee "1" --> "*" PerformanceReview
+Employee "1" --> "*" Prediction
+Employee "1" --> "*" Notification
+
+LeaveRequest "*" --> "1" LeaveType
+
+Project "1" --> "*" Task
+Employee "*" --> "*" Project
+
+Employee "1" --> "*" Task
+Employee "1" --> "*" Meeting
+
+Employee "1" --> "*" AuditLog
+
+Employee "1" --> "*" Employee : manages >
+
+@enduml
