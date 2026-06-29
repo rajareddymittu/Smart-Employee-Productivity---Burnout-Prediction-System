@@ -85,6 +85,7 @@ The application is implemented using Angular for the frontend, FastAPI for the b
 9. Application
 10. Conclusion
 11. Bibliography
+12. Appendix
 
 ---
 
@@ -102,9 +103,11 @@ Organizations often fail to identify early burnout signals such as heavy workloa
 
 The proposed solution is a secure full-stack application that stores employee data, captures work activity, and uses ML-based analytics to support productivity monitoring and burnout prediction.
 
-## 1.3 Objectives
+## 2. Objectives
 
-- Build a role-based employee productivity analytics platform.
+The primary objectives of the project are:
+
+- Build a secure, role-based employee productivity analytics platform.
 - Provide secure login and authorization.
 - Manage employee and department information.
 - Allow managers to view their reportees.
@@ -113,15 +116,15 @@ The proposed solution is a secure full-stack application that stores employee da
 - Support machine learning-based burnout prediction.
 - Improve decision-making through analytics and reports.
 
-## 1.4 Broad Area of Application
+## 3. Scope of the Project
 
-The project belongs to the following broad application areas:
-- Machine Learning
-- Software Engineering
-- Database Management Systems
-- Web Application Development
+The project is intended for organizations that want a practical web-based solution for employee productivity monitoring and burnout awareness. The current scope includes secure authentication, employee data access, manager-wise reportee visibility, HR-level employee review, worklog handling, and burnout-focused analytics.
 
-## 1.5 Hardware Requirements
+The system is suitable for internal organizational use in HR departments, team management, and employee wellness monitoring. The modular architecture also supports future expansion into attendance, leave management, task tracking, and advanced reporting features.
+
+## 4. Hardware and Software Requirements
+
+### 4.1 Hardware Requirements
 
 The project can run on a standard development workstation.
 - Processor: Intel i5 / Ryzen 5 or above
@@ -130,7 +133,7 @@ The project can run on a standard development workstation.
 - Internet access for package installation and updates
 - Standard keyboard, mouse, and display interfaces
 
-## 1.6 Software Requirements
+### 4.2 Software Requirements
 
 - Frontend: Angular
 - Backend: FastAPI (Python)
@@ -141,13 +144,7 @@ The project can run on a standard development workstation.
 - Version Control: Git
 - Operating System: Windows, macOS, or Linux
 
-## 1.7 Scope of the Project
-
-The project is intended for organizations that want a practical web-based solution for employee productivity monitoring and burnout awareness. The current scope includes secure authentication, employee data access, manager-wise reportee visibility, HR-level employee review, worklog handling, and burnout-oriented analytics.
-
-The system is suitable for internal organizational use in HR departments, team management, and employee wellness monitoring. The modular architecture also supports future expansion into attendance, leave management, task tracking, and advanced reporting features.
-
-## 1.8 Project Synopsis
+### 4.3 Project Synopsis
 
 **Title:** AI-Powered Employee Productivity Analytics and Burnout Prediction System
 
