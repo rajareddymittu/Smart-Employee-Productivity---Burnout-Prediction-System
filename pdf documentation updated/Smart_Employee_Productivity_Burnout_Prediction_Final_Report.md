@@ -246,7 +246,6 @@ Mohali, Punjab
 
 `<br>`{=html}`<br>`{=html}
 
-![Chandigarh University Logo](images/cu_logo.png)
 
 `<br>`{=html}
 
@@ -713,8 +712,7 @@ The system follows a layered architecture:
 3.  Machine Learning Prediction Layer
 4.  PostgreSQL Data Layer
 
-> Insert the System Architecture diagram immediately after this section
-> in the final report.
+![alt text](<../documentation/system architecture diagram.svg>)
 
 ------------------------------------------------------------------------
 
@@ -1199,12 +1197,12 @@ The project minimizes development cost by using open-source software.
 
   Resource               Cost
   -------------------- ------
-  Angular                  ₹0
-  FastAPI                  ₹0
-  PostgreSQL               ₹0
-  Python Libraries         ₹0
-  Visual Studio Code       ₹0
-  Git                      ₹0
+  Angular                  Rs.0
+  FastAPI                  Rs.0
+  PostgreSQL               Rs.0
+  Python Libraries         Rs.0
+  Visual Studio Code       Rs.0
+  Git                      Rs.0
 
 The only recurring expenses are optional cloud hosting and production
 infrastructure.
@@ -1415,7 +1413,6 @@ The implementation workflow followed:
 9.  Documentation
 10. Deployment
 
-Insert the SDLC workflow diagram after this section in the final report.
 
 ------------------------------------------------------------------------
 
@@ -1640,8 +1637,7 @@ Dashboard Visualization
 
 ## 6.5 Use Case Diagram
 
-Insert the rendered **Use Case Diagram** generated from
-`use_case_diagram.puml`.
+![alt text](../documentation/use_case_diagram.svg)
 
 Describe the interactions between:
 
@@ -1653,8 +1649,7 @@ Describe the interactions between:
 
 ## 6.6 Activity Diagram
 
-Insert the rendered **Activity Diagram** generated from
-`activity_diagram.puml`.
+![alt text](../documentation/activity_diagram.svg)
 
 The diagram illustrates:
 
@@ -1699,11 +1694,8 @@ PostgreSQL database during the authentication process.
 
 **Diagram**
 
-Insert the rendered image generated from:
 
-``` text
-login_sequence_diagram.puml
-```
+![alt text](../documentation/login_sequence_diagram.svg)
 
 ------------------------------------------------------------------------
 
@@ -1725,8 +1717,7 @@ prediction.
 
 **Diagram**
 
-Insert the rendered image generated from:
-
+![alt text](../documentation/burnout_prediction_sequence.svg)
 ``` text
 burnout_prediction_sequence.puml
 ```
@@ -1753,8 +1744,7 @@ and dependencies between classes.
 
 **Diagram**
 
-Insert the rendered image generated from:
-
+![alt text](../documentation/class_diagram.svg)
 ``` text
 class_diagram.puml
 ```
@@ -1787,7 +1777,7 @@ Data stores:
 
 **Diagram**
 
-Insert the rendered image generated from:
+![alt text](../documentation/dfd_level_0.svg)
 
 ``` text
 dfd_level_0.puml
@@ -1813,7 +1803,7 @@ authentication.
 
 **Diagram**
 
-Insert the rendered image generated from:
+![alt text](../documentation/deployment_diagram.svg)
 
 ``` text
 deployment_diagram.puml
@@ -1932,8 +1922,6 @@ Major screens include:
 -   Burnout Prediction
 -   Reports
 
-Insert screenshots from your project in the corresponding sections of
-the final report.
 
 ------------------------------------------------------------------------
 
@@ -2067,7 +2055,7 @@ The database contains entities similar to the following:
 
 ## 7.5 Entity Relationship Diagram
 
-Insert the rendered **ER Diagram** generated from your PlantUML source.
+![alt text](../documentation/er_diagram.svg)
 
 **Figure 7.1 Entity Relationship Diagram**
 
@@ -2533,14 +2521,8 @@ application.
 
 ## 9.13 Screenshots
 
-Include screenshots of:
-
--   Login
--   Dashboard
--   Employee Management
--   Burnout Prediction
--   Reports
--   API Testing
+![screenshot](../Screenshots/screencapture-localhost-4200-2026-06-29-19_40_09.png) 
+![alt text](../Screenshots/screencapture-localhost-4200-2026-06-29-19_32_37.png) ![alt text](../Screenshots/screencapture-localhost-4200-2026-06-29-19_36_15.png) ![alt text](../Screenshots/screencapture-localhost-4200-employees-2026-06-29-19_39_31.png) ![alt text](../Screenshots/screencapture-localhost-4200-employees-2026-06-29-19_40_21.png) ![alt text](../Screenshots/screencapture-localhost-4200-predict-2026-06-29-19_37_21.png) ![alt text](../Screenshots/screencapture-localhost-4200-predict-2026-06-29-19_38_26.png) ![alt text](../Screenshots/screencapture-localhost-4200-predict-2026-06-29-19_39_12.png) ![alt text](../Screenshots/screencapture-localhost-4200-predict-2026-06-29-19_39_44.png) ![alt text](../Screenshots/screencapture-localhost-4200-reportees-2026-06-29-19_39_52.png) ![alt text](../Screenshots/screencapture-localhost-4200-worklog-2026-06-29-19_37_06.png) ![alt text](<../Screenshots/Screenshot 2026-06-29 at 7.44.17 PM.png>)
 
 ------------------------------------------------------------------------
 
@@ -2599,9 +2581,7 @@ Users authenticate through a secure login page.
 4.  JWT token is generated.
 5.  User is redirected to the dashboard.
 
-**Insert Login Screenshot**
-
-`images/results/login.png`
+![alt text](../Screenshots/screencapture-localhost-4200-2026-06-29-19_32_37.png)
 
 ------------------------------------------------------------------------
 
@@ -2619,9 +2599,7 @@ Displayed information may include:
 -   Burnout Risk Distribution
 -   Recent Activities
 
-**Insert Dashboard Screenshot**
-
-`images/results/dashboard.png`
+![alt text](../Screenshots/screencapture-localhost-4200-2026-06-29-19_40_09.png)
 
 ------------------------------------------------------------------------
 
@@ -2637,9 +2615,7 @@ Functions include:
 -   Search Employee
 -   View Employee Details
 
-**Insert Employee Module Screenshot**
-
-`images/results/employees.png`
+![alt text](../Screenshots/screencapture-localhost-4200-employees-2026-06-29-19_39_31.png)
 
 ------------------------------------------------------------------------
 
@@ -2669,9 +2645,7 @@ The backend training pipeline includes:
 -   train_model.py
 -   train_model_v2.py
 
-**Insert Prediction Screenshot**
-
-`images/results/prediction.png`
+![alt text](../Screenshots/screencapture-localhost-4200-predict-2026-06-29-19_39_12.png)
 
 ------------------------------------------------------------------------
 
@@ -2730,17 +2704,7 @@ The system offers:
 
 ## 10.11 Screenshots
 
-Include screenshots for:
-
--   Login
--   Dashboard
--   Employee Management
--   Department Management
--   Attendance
--   Burnout Prediction
--   Reports
--   API Testing
-
+![alt text](../Screenshots/screencapture-localhost-4200-2026-06-29-19_32_37.png) ![alt text](../Screenshots/screencapture-localhost-4200-2026-06-29-19_36_15.png) ![alt text](../Screenshots/screencapture-localhost-4200-2026-06-29-19_40_09.png) ![alt text](../Screenshots/screencapture-localhost-4200-employees-2026-06-29-19_39_31.png) ![alt text](../Screenshots/screencapture-localhost-4200-employees-2026-06-29-19_40_21.png) ![alt text](../Screenshots/screencapture-localhost-4200-predict-2026-06-29-19_37_21.png) ![alt text](../Screenshots/screencapture-localhost-4200-predict-2026-06-29-19_38_26.png) ![alt text](../Screenshots/screencapture-localhost-4200-predict-2026-06-29-19_39_12.png) ![alt text](../Screenshots/screencapture-localhost-4200-predict-2026-06-29-19_39_44.png) ![alt text](../Screenshots/screencapture-localhost-4200-reportees-2026-06-29-19_39_52.png) ![alt text](../Screenshots/screencapture-localhost-4200-worklog-2026-06-29-19_37_06.png) ![alt text](<../Screenshots/Screenshot 2026-06-29 at 7.44.17 PM.png>)
 ------------------------------------------------------------------------
 
 ## 10.12 Chapter Summary
@@ -3316,7 +3280,7 @@ Major configuration files include:
 
 ## Appendix H -- Additional Screenshots
 
-Include screenshots of:
+Included screenshots of:
 
 -   Login
 -   Dashboard
